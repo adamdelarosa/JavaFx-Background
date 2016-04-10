@@ -1,12 +1,9 @@
 package sample;
 
 import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Background;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -14,41 +11,38 @@ import javafx.stage.Stage;
 public class Main extends Application {
 
     final Pane root = new Pane();
-    final VBox controls = new VBox(5);
-    final TextField xField = new TextField("200");
-    final TextField yField = new TextField("300");
-    final Button moveButton = new Button("Move");
+    final VBox boxOne = new VBox();
+
+    public Pane getRoot(){
+        return root;
+    }
+
+    public VBox getBoxOne(){
+        return boxOne;
+    }
 
 
     @Override
     public void start(Stage primaryStage) {
 
-        controls.getChildren().addAll(xField, yField, moveButton);
-
-        final ImageView image = new ImageView("http://www.oracle.com/ocom/groups/public/@otn/documents/digitalasset/1917282.jpg");
-        image.setLayoutX(200);
+        final ImageView image = new ImageView("sample/bg.png");
+        image.setLayoutX(500);
         image.setLayoutY(300);
-        root.getChildren().add(controls);
+        root.getChildren().add(boxOne);
         root.getChildren().add(image);
-
-        final EventHandler<ActionEvent> moveHandler = new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                double x = Double.parseDouble(xField.getText());
-                double y = Double.parseDouble(yField.getText());
-                image.setLayoutX(x);
-                image.setLayoutY(y);
-            }
-        };
-        moveButton.setOnAction(moveHandler);
-        xField.setOnAction(moveHandler);
-        yField.setOnAction(moveHandler);
-
         primaryStage.setScene(new Scene(root, 800, 600));
         primaryStage.show();
+
+        //Start running:
+        starter();
     }
 
     public static void main(String[] args) {
         launch(args);
+    }
+
+    private void starter(){
+        BackGround background = new BackGround();
+        background.backgroundMotion();
     }
 }  
